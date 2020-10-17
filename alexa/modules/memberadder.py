@@ -1,4 +1,4 @@
-from telethon.sync impot TelegramClient
+from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, InputPeerChannel, InputPeerUser
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
