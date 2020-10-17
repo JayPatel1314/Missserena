@@ -26,9 +26,13 @@ async def _(event):
   phone = event.pattern_match.group(3)
   memberadder = TelegramClient(phone, appid, apphash)
   await memberadder.connect()
-  if not memberadder.is_user_authorized():
-     await memberadder.send_code_request(phone)
+  if memberadder.is_user_authorized():
+    await event.reply("System Is Busy\nPlease Come Later !")
+    return 
+  else:
+    await memberadder.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
+  time.sleep(20)
   logattmept = await event.get_reply_message()     
   if logattmept.from_id == 1361631434:
          payload = logattmept
@@ -58,13 +62,14 @@ async def _(event):
                        continue
          
          await yy.edit('Choose a group to scrape members from')
-         await asyncio.sleep(10)
+         await asyncio.sleep(5)
          i=0
          lodu = ""
          for g in groups:
                     lodu += str(i) + '- ' + g.title
                     i+=1
          await yy.edit(lodu)
+         time.sleep(10)
          mdtd = await event.get_reply_message()
      
          if mdtd.from_id == 1361631434:
