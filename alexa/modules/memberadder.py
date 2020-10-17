@@ -1,4 +1,4 @@
-from telethon.sync import TelegramClient
+from telethon.sync impot TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, InputPeerChannel, InputPeerUser
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
@@ -24,20 +24,15 @@ async def _(event):
   appid = event.pattern_match.group(1)
   apphash = event.pattern_match.group(2)
   phone = event.pattern_match.group(3)
-  client = TelegramClient(phone, appid, apphash)
-  try:
-    if await client.is_user_authorized():
-     await event.reply("System is busy !\nCome again later.")
-     return
-  except Exception:
-     pass
-  await client.send_code_request(phone)
+  memberadder = TelegramClient(phone, appid, apphash)
+  
+  await memberadder.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
   logattmept = await event.get_reply_message()     
   if logattmept.from_id == 1361631434:
          payload = logattmept
-         await client.sign_in(phone, payload)
-         await yy.edit("Logged In")  
+  await memberadder.sign_in(phone, payload)
+  await yy.edit("Logged In")  
   timeout = time.time() + 600
   if time.time() < timeout:
          chats = []
@@ -45,7 +40,7 @@ async def _(event):
          chunk_size = 200
          groups=[]
                          
-         result = client(GetDialogsRequest(
+         result = await memberadder(GetDialogsRequest(
                                         offset_date=last_date,
                                         offset_id=0,
                                         offset_peer=InputPeerEmpty(),
@@ -79,7 +74,7 @@ async def _(event):
          await yy.edit('Fetching Members...')
           
          all_participants = []
-         all_participants = client.get_participants(target_group, aggressive=True)
+         all_participants = await memberadder.get_participants(target_group, aggressive=True)
           
          await yy.edit('Fetching Members...\nDone')
           
@@ -123,7 +118,7 @@ async def _(event):
          chunk_size = 200
          groups=[]
                    
-         result = client(GetDialogsRequest(
+         result = await memberadder(GetDialogsRequest(
                                         offset_date=last_date,
                                         offset_id=0,
                                         offset_peer=InputPeerEmpty(),
@@ -157,7 +152,7 @@ async def _(event):
          await yy.edit('Fetching Members...')
           
          all_participants = []
-         all_participants = client.get_participants(target_group, aggressive=True)
+         all_participants = await memberadder.get_participants(target_group, aggressive=True)
           
          await yy.edit('Fetching Members...\nDone')
           
@@ -203,7 +198,7 @@ async def _(event):
          chunk_size = 10
          groups=[]
 
-         result = client(GetDialogsRequest(
+         result = await memberadder(GetDialogsRequest(
                                     offset_date=last_date,
                                     offset_id=0,
                                     offset_peer=InputPeerEmpty(),
@@ -249,13 +244,13 @@ async def _(event):
                            if mode == 1:
                                     if user['username'] == "":
                                              continue
-                                    user_to_add = client.get_input_entity(user['username'])
+                                    user_to_add = await memberadder.get_input_entity(user['username'])
                            elif mode == 2:
                                     user_to_add = InputPeerUser(user['id'], user['access_hash'])
                            else:
                                     await yy.edit("Invalid Mode Selected. Please Try Again.")
                                     return
-                           client(InviteToChannelRequest(target_group_entity,[user_to_add]))
+                           await memberadder(InviteToChannelRequest(target_group_entity,[user_to_add]))
                            time.sleep(2)
                   except PeerFloodError:
                            await yy.edit("Getting Flood Error from telegram...\nQuitting")
@@ -271,7 +266,7 @@ async def _(event):
                                     return 
   else:
      return
-  await client.log_out()
+  await memberadder.log_out()
   os.chdir('/app/MissAlexaRobot/MissAlexaRobot')
   os.system('rm -rf memberadder')
   
