@@ -10,7 +10,7 @@ import time
 import random
 import re
 import asyncio
-from alexa import register
+from alexa.events import register
 
 # Made by @MissAlexa_Robot
  
