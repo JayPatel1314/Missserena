@@ -11,7 +11,7 @@ import random
 import re
 import os
 import asyncio
-from alexa.events import register
+from alexa.events import register, tbot
 
 # Made by @MissAlexa_Robot
  
@@ -32,92 +32,11 @@ async def _(event):
   else:
     await memberadder.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
-  time.sleep(20)
-  logattmept = await event.get_reply_message()     
-  if logattmept.from_id == 1361631434:
-         payload = logattmept
-  await memberadder.sign_in(phone, payload)
+  
+  await memberadder.sign_in(phone, inputss)
   await yy.edit("Logged In")  
   timeout = time.time() + 600
   if time.time() < timeout:
-         chats = []
-         last_date = None
-         chunk_size = 200
-         groups=[]
-                         
-         result = await memberadder(GetDialogsRequest(
-                                        offset_date=last_date,
-                                        offset_id=0,
-                                        offset_peer=InputPeerEmpty(),
-                                        limit=chunk_size,
-                                        hash = 0
-                                  ))
-                    
-         chats.extend(result.chats)
-          
-         for chat in chats:
-                  try:
-                       groups.append(chat)
-                  except:
-                       continue
-         
-         await yy.edit('Choose a group to scrape members from')
-         await asyncio.sleep(5)
-         i=0
-         lodu = ""
-         for g in groups:
-                    lodu += str(i) + '- ' + g.title
-                    i+=1
-         await yy.edit(lodu)
-         time.sleep(10)
-         mdtd = await event.get_reply_message()
-     
-         if mdtd.from_id == 1361631434:
-             numberchatt = mdtd
-             
-         target_group=groups[int(numberchatt)]
-         
-         await yy.edit('Fetching Members...')
-          
-         all_participants = []
-         all_participants = await memberadder.get_participants(target_group, aggressive=True)
-          
-         await yy.edit('Fetching Members...\nDone')
-          
-         with open("alexa.csv", "w",encoding='UTF-8') as f:
-                    writer = csv.writer(f,delimiter=",",lineterminator="\n")
-                    writer.writerow(['username','user id', 'access hash','name','group', 'group id'])
-                    for user in all_participants:
-                              if user.username:
-                                        username= user.username
-                              else:
-                                        username= ""
-                              if user.first_name:
-                                        first_name= user.first_name
-                              else:
-                                        first_name= ""
-                              if user.last_name:
-                                        last_name= user.last_name
-                              else:
-                                        last_name= ""
-                              name= (first_name + ' ' + last_name).strip()
-                              writer.writerow([username,user.id,user.access_hash,name,target_group.title, target_group.id])            
-         await yy.edit('Members scrapped successfully.')
-          
-         input_file = "alexa.csv"
-         users = []
-         with open(input_file, encoding='UTF-8') as f:
-                  rows = csv.reader(f,delimiter=",",lineterminator="\n")
-                  next(rows, None)
-                  for row in rows:
-                           user = {}
-                           user['username'] = row[0]
-                           try:
-                                    user['id'] = int(row[1])
-                                    user['access_hash'] = int(row[2])
-                           except IndexError:
-                                    pass
-                           users.append(user)
          
          chats = []
          last_date = None
@@ -148,12 +67,8 @@ async def _(event):
                     lodu += str(i) + '- ' + g.title
                     i+=1
          await yy.edit(lodu)
-         mdtd = await event.get_reply_message()
-     
-         if mdtd.from_id == 1361631434:
-             numberchatt = mdtd
              
-         target_group=groups[int(numberchatt)]
+         target_group=groups[int(inputss)]
           
          await yy.edit('Fetching Members...')
           
@@ -230,10 +145,8 @@ async def _(event):
                   
          await yy.edit(metadata)
                  
-         mdtd = await event.get_reply_message()     
-         if mdtd.from_id == 1361631434:
-            numberchatt = mdtd
-         g_index = addnumberchatt
+         
+         g_index = inputss
          target_group=groups[int(g_index)]
          #  print('\n\nGrupo elegido:\t' + groups[int(g_index)].title)
          await yy.edit("Adding members now ...\nThis process will run for 10 mins and stop automatically !")
@@ -275,4 +188,17 @@ async def _(event):
   await memberadder.log_out()
   os.chdir('/app/MissAlexaRobot/MissAlexaRobot')
   os.system('rm -rf memberadder')
+  
+
+@tbot.on(events.NewMessage())      
+async def membermember(event):
+  if event.fwd_from:
+    return  
+
+  if event.is_group or event.is_channel:
+      return
+
+  global inputss
+  
+  inputss = str(event.text)
   
