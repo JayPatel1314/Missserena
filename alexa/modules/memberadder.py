@@ -25,15 +25,15 @@ async def _(event):
   apphash = event.pattern_match.group(2)
   phone = event.pattern_match.group(3)
   client = TelegramClient(phone, appid, apphash)
-  if client.is_user_authorized():
+  if await client.is_user_authorized():
      await event.reply("System is busy !\nCome again later.")
      return
-  client.send_code_request(phone)
+  await client.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
   logattmept = await event.get_reply_message()     
   if logattmept.from_id == 1361631434:
          payload = logattmept
-         client.sign_in(phone, payload)
+         await client.sign_in(phone, payload)
          await yy.edit("Logged In")  
   timeout = time.time() + 600
   if time.time() < timeout:
