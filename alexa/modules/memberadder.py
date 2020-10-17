@@ -16,7 +16,7 @@ from alexa.events import register
  
 @register(pattern="^/addmembers (.*) (.*) (.*)")
 async def _(event):
-  if not event.is_private():
+  if event.is_group or event.is_channel:
       return
   os.mkdir("memberadder")
   os.chdir("memberadder")
