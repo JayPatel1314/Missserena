@@ -26,7 +26,7 @@ async def _(event):
   phone = event.pattern_match.group(3)
   memberadder = TelegramClient(phone, appid, apphash)
   await memberadder.connect()
-  if memberadder.is_user_authorized():
+  if await memberadder.is_user_authorized():
     await event.reply("System Is Busy\nPlease Come Later !")
     return 
   else:
