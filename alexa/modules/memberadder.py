@@ -34,7 +34,8 @@ async def _(event):
          payload = logattmept
          client.sign_in(phone, payload)
          await yy.edit("Logged In")  
-  timeout = time.time() + 600:
+  timeout = time.time() + 600
+  if time.time() < timeout:
          chats = []
          last_date = None
          chunk_size = 200
