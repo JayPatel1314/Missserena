@@ -828,6 +828,12 @@ async def checkst(event):
 	if await is_register_admin(event.input_chat, reply_msg.from_id):
 		await event.reply("Why will i check approve status of an admin ?")
 		return
+	
+	if reply_msg.from_id == 1361631434:
+		await event.reply("I don't wanna check my own status")
+		print("7")
+		return
+
 			
 	if not event.reply_to_msg_id:
 		await event.reply("Reply To Someone's Message To Check Status")
