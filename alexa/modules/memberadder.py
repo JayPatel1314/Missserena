@@ -25,9 +25,12 @@ async def _(event):
   apphash = event.pattern_match.group(2)
   phone = event.pattern_match.group(3)
   client = TelegramClient(phone, appid, apphash)
-  if await client.is_user_authorized():
+  try:
+    if await client.is_user_authorized():
      await event.reply("System is busy !\nCome again later.")
      return
+  except Exception:
+     pass
   await client.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
   logattmept = await event.get_reply_message()     
