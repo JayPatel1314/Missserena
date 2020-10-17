@@ -25,7 +25,7 @@ async def _(event):
   apphash = event.pattern_match.group(2)
   phone = event.pattern_match.group(3)
   memberadder = TelegramClient(phone, appid, apphash)
-  await memberadder.connnect()
+  await memberadder.connect()
   if not memberadder.is_user_authorized():
      await memberadder.send_code_request(phone)
   yy = await event.reply('Enter the code that you received')  
