@@ -8,6 +8,16 @@ A modular Telegram Python bot running on python3 with a sqlalchemy database. Thi
 
 Can be found on telegram as [M̶i̶s̶s̶ ̶S̶e̶r̶e̶n̶a̶](https://t.me/Missserenarobot).
 
-The Support group can be reached out to at [BotLabSupport](https://t.me/BotLabSupport), where you can ask for help about [M̶i̶s̶s̶ ̶S̶e̶r̶e̶n̶a̶]](https://t.me/Missserenarobot]), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
+The Support group can be reached out to at [BotLabSupport](https://t.me/BotLabSupport), where you can ask for help about [M̶i̶s̶s̶ ̶S̶e̶r̶e̶n̶a̶]](https://t.me/Missserenarobot]), discover/request new features, report bugs, and stay in the loop whenever a new update is available.  
 
+
+## stats
+![Darkpokefan's Github stats](https://github-readme-stats.vercel.app/api?username=darkpokefan&show_icons=true&theme=tokyonight) 
+
+## Creadit
+PaulSonOfLars [TgBot](https://github.com/PaulSonOfLars/tgbot)
+Kaizoku [Anime.py](https://github.com/AnimeKaizoku/SaitamaRobot/blob/master/SaitamaRobot/modules/admin.py) 
+Bhavyanshu [youtube.py](https://github.com/bhavyanshu/lulzbot-telegram-bot/blob/master/botmodules/youtube.py)
+nkming [Googlesearch](https://github.com/nkming2/google-search-telegram-bot)
+        
 
